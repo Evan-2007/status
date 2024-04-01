@@ -66,7 +66,7 @@ export default function Page() {
           )}
         </div>
         {status.services && status.services.map((service: any) => (
-            <div className='flex items-center h-10 bg-primary border-t border-border'>
+            <div className='flex items-center h-10 bg-primary border-t border-border' key={service.name}>
               <Dot color={service.state === 'ok' ? 'green' : 'red'}/>
               <p>{service.name}</p>
             </div>
@@ -77,13 +77,12 @@ export default function Page() {
 
 }
 
-export function Dot({color}: {color: string}) {
-  if (color === 'green') {
-    return (
-      <div className='w-4 h-4 bg-green-500 rounded-full mr-2'/>
-    )
-  }
+const Dot: React.FC<{ color: string }> = ({ color }) => {
   return (
-    <div className='w-4 h-4 bg-red-500 rounded-full mr-2'/>
-  )
-}
+    <div
+      className={`w-4 h-4 rounded-full mr-2 ${
+        color === 'green' ? 'bg-green-500' : 'bg-red-500'
+      }`}
+    />
+  );
+};
